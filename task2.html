@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Download books</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <h3>Download books</h3>
+  <button id="downloadButton">Download books</button>
+  <ul id="authorsList"></ul>
+
+  <script>
+  $(document).ready(function() {
+  $('#downloadButton').click(function() {
+    $.ajax({
+      url: 'books.json',
+      dataType: 'json',
+      success: function(data) {
+        const authors = data.books.map(book => book.author);
+        const html = authors.map(author => `<li>${author}</li>`).join('');
+        $('#authorsList').html(html);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  });
+});
+  </script>
+</body>
+</html>

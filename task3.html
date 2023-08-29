@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random User Generator</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <h3>Random User Generator</h3>
+  <div id="user"></div>
+
+  <script>
+  $(document).ready(function() {
+  $.ajax({
+    url: 'https://randomuser.me/api/',
+    dataType: 'json',
+    success: function(data) {
+      const user = data.results[0];
+      const name = `${user.name.first} ${user.name.last}`;
+      const age = user.dob.age;
+      const gender = user.gender;
+      const country = user.location.country;
+      const login = user.login.username;
+      const password = user.login.password;
+      const email = user.email;
+      const avatar = user.picture.large;
+
+      const html = `
+        <img src="${avatar}" alt="User avatar">
+        <p>Name: ${name}</p>
+        <p>Age: ${age}</p>
+        <p>Gender: ${gender}</p>
+        <p>Country: ${country}</p>
+        <p>Login: ${login}</p>
+        <p>Password: ${password}</p>
+        <p>Email: ${email}</p>
+      `;
+
+      $('#user').html(html);
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+});
+
+  </script>
+</body>
+</html>
